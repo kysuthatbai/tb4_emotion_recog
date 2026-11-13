@@ -1,0 +1,41 @@
+# Gắn nhãn ngữ nghĩa cho các vùng sau khi phân vùng tự động (đầu vào của segment_map).
+#
+# Mỗi mục chọn MỘT vùng bằng một trong hai cách:
+#   point:   [x, y]               điểm bất kỳ (frame map) nằm trong vùng tự động cần đặt tên
+#   polygon: [[x, y], ...]        vẽ tay biên vùng (đè lên vùng tự động), dùng khi phân vùng tự động
+#                                 chưa như ý hoặc chạy segment_map --manual-only
+# Tùy chọn:
+#   id:      chữ cái gọi bằng giọng nói ("khu vực A"); bỏ trống = tự đặt theo thứ tự đọc bản đồ
+#            (trên xuống dưới, trái sang phải)
+#   aliases: các cách gọi khác
+#   kind:    room | corridor (mặc định tự đoán theo hình dạng)
+#   goal:    [x, y, yaw_deg] đặt tay điểm đích (mặc định: tâm đường tròn nội tiếp lớn nhất của vùng)
+# Vùng không có trong danh sách vẫn được dùng, tên là "Khu vực <chữ cái>".
+#
+# Sau khi sửa file này: ros2 run tb4_voice_nav segment_map   (ghi lại config/zones.yaml)
+
+zones:
+  - name: Phòng học
+    point: [-7.5, 7.6]
+    aliases: [lớp học, phòng lớp học]
+
+  - name: Hành lang
+    point: [5.2, 6.8]
+    aliases: [hành lang đông bắc, cầu thang]
+    kind: corridor
+
+  - name: Sảnh chính
+    point: [-3.0, 3.9]
+    aliases: [sảnh, đại sảnh]
+
+  - name: Phòng thí nghiệm
+    point: [5.9, -1.9]
+    aliases: [phòng lab, phòng thực hành, thí nghiệm]
+
+  - name: Phòng họp
+    point: [-6.0, -3.8]
+    aliases: [phòng hội nghị]
+
+  - name: Thư viện
+    point: [-1.0, -7.9]
+    aliases: [phòng đọc, phòng đọc sách]

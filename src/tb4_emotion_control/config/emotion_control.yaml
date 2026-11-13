@@ -1,0 +1,49 @@
+# Tham số cho emotion_control.launch.py. Ý nghĩa chi tiết xem docstring/declare_parameter trong từng node.
+emotion_recognition_node:
+  ros__parameters:
+    camera_index: 0
+    frame_width: 640
+    frame_height: 480
+    mirror: true
+    input: ''                 # '' = webcam | file video | thư mục ảnh (thử không cần webcam)
+    image_period: 4.0         # s mỗi ảnh khi input là thư mục
+    detector: yunet           # yunet (ONNX, nhanh, chính xác) | opencv (Haar, không cần tải)
+    deepface_home: ~/tb4_ws/models   # trọng số ở <deepface_home>/.deepface/weights
+    min_face_conf: 0.5
+    min_face_size: 40         # px
+    tau: 0.3                  # s, hằng số thời gian làm mượt xác suất (EMA)
+    min_conf: 0.45            # xác suất tối thiểu của biểu cảm thắng
+    min_margin: 0.10          # chênh lệch tối thiểu với biểu cảm thứ hai
+    stable_time: 0.4          # s giữ nguyên mới thành nhãn ổn định
+    no_face_time: 0.5         # s mất mặt -> no_face
+    rate: 30.0
+    emotion_topic: /detected_emotion
+    state_topic: /emotion_behavior_state
+    image_topic: /emotion/image_annotated
+    publish_image: true
+    show_window: true
+
+emotion_behavior_node:
+  ros__parameters:
+    emotion_topic: /detected_emotion
+    state_topic: /emotion_behavior_state
+    cmd_vel_topic: cmd_vel
+    odom_topic: odom
+    scan_topic: scan
+    control_rate: 20.0
+    hold_time: 0.3            # s giữ biểu cảm để thành lệnh
+    stop_hold_time: 0.3       # s riêng cho neutral / no_face
+    release_time: 0.5         # s quỹ đạo cong chạy tiếp khi biểu cảm chập chờn
+    signal_timeout: 1.0       # s mất /detected_emotion -> dừng
+    stop_on_no_face: true
+    curve_speed: 0.15         # happy / sad
+    curve_radius: 0.5
+    back_distance: 0.2        # angry
+    back_speed: 0.1
+    forward_distance: 0.25    # fear
+    forward_speed: 0.12
+    spin_speed: 1.2           # surprise
+    spin_angle_deg: 360.0
+    spin_odom_gain: 1.06      # Gazebo: odom quay tại chỗ dư ~6% (robot thật: 1.0)
+    safety_distance: 0.35
+    safety_half_angle: 0.6

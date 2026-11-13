@@ -1,0 +1,47 @@
+# Tham số cho gesture_control.launch.py. Ý nghĩa chi tiết xem docstring/declare_parameter trong từng node.
+gesture_recognition_node:
+  ros__parameters:
+    camera_index: 0
+    frame_width: 640
+    frame_height: 480
+    mirror: true
+    model_path: ''            # '' = models/gesture_recognizer.task trong package
+    num_hands: 1
+    min_score: 0.6            # độ tin cậy tối thiểu của MediaPipe
+    stable_window: 7          # bỏ phiếu trên 7 khung gần nhất ...
+    stable_count: 5           # ... cần >= 5 phiếu
+    wave_window: 1.5          # s
+    wave_min_amplitude: 0.06  # biên độ mỗi nhịp vẫy (tỷ lệ bề rộng khung)
+    wave_min_swings: 2        # số lần đổi chiều trái/phải
+    wave_hold: 0.5
+    still_threshold: 0.05
+    still_horizon: 0.5
+    post_wave_palm_block: 0.5
+    gesture_topic: /detected_gesture
+    state_topic: /robot_behavior_state
+    show_window: true
+
+robot_behavior_node:
+  ros__parameters:
+    gesture_topic: /detected_gesture
+    state_topic: /robot_behavior_state
+    cmd_vel_topic: cmd_vel
+    odom_topic: odom
+    scan_topic: scan
+    control_rate: 20.0
+    hold_time: 0.5            # s giữ cử chỉ để thành lệnh
+    stop_hold_time: 0.15      # s riêng cho Open_Palm
+    cooldown: 1.0             # s giữa 2 lệnh
+    signal_timeout: 1.0       # s mất /detected_gesture -> dừng
+    wave_requires_confirm: false
+    linear_speed: 0.2
+    forward_distance: 0.4
+    forward_back_cycles: 4
+    circle_radius: 0.5
+    circle_speed: 0.15
+    greet_angle: 0.6
+    greet_speed: 1.2
+    greet_swings: 2
+    segment_pause: 0.4
+    safety_distance: 0.35
+    safety_half_angle: 0.6

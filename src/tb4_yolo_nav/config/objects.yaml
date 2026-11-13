@@ -1,0 +1,53 @@
+# Vật thể thả thêm vào world maze (đang trống) để YOLO có thứ nhận diện.
+# Tọa độ (x, y) trong frame world của Gazebo; vì robot spawn ở gốc world lúc quét bản đồ
+# nên frame world trùng frame map -> có thể dùng làm "ground truth" vị trí vật thể.
+#
+# model:
+#   - URL Fuel  : https://fuel.gazebosim.org/1.0/<Owner>/models/<Name>[/<version>]
+#                 Launch tự tìm bản đã có trong cache ~/.ignition/fuel (không cần mạng);
+#                 nếu chưa có trong cache thì để Gazebo tự tải (cần mạng).
+#   - Tên thư mục trong tb4_yolo_nav/models (model tự dựng, ví dụ fire_extinguisher).
+# yaw_deg: hướng mặt trước (+x) của model, chỉnh để vật quay về phía điểm quan sát.
+# label: tên lớp mong đợi khi nhận diện (dùng cho marker RViz và đối chiếu kết quả YOLO).
+
+world: maze
+
+objects:
+  - name: person_west              # khu sảnh phía tây, nhìn từ Goal 1
+    model: https://fuel.gazebosim.org/1.0/OpenRobotics/models/MaleVisitorOnPhone
+    label: person
+    x: -4.3
+    y: 2.2
+    yaw_deg: -34
+
+  # Không đặt vật ở khu tây nam: bản đồ maze chưa quét tường ở đó nên AMCL bị lệch
+  # (đã thử: robot đi về tây nam thì AMCL sai tới ~8 m).
+  - name: person_north             # góc lối vào hành lang đông bắc, nhìn từ Goal 4
+    model: https://fuel.gazebosim.org/1.0/plateau/models/Casual female
+    label: person
+    x: 1.5
+    y: 4.5
+    yaw_deg: -75
+
+  - name: chair_northeast          # cuối hành lang bậc thang đông bắc, nhìn từ Goal 2
+    model: https://fuel.gazebosim.org/1.0/OpenRobotics/models/Chair
+    label: chair
+    x: 6.0
+    y: 7.6
+    yaw_deg: -132
+
+  - name: fire_extinguisher_southeast   # sát tường khu đông nam, nhìn từ Goal 3
+    model: fire_extinguisher
+    label: fire extinguisher
+    x: 5.6
+    y: -3.82
+    yaw_deg: 158
+
+  # Xe ô tô thật dài ~4 m, không lọt hành lang 2 m của maze; chỉ đặt được ở sảnh tây
+  # (rộng ~4 m). Model chưa có trong cache nên cần mạng để Gazebo tải về.
+  # - name: car_west
+  #   model: https://fuel.gazebosim.org/1.0/OpenRobotics/models/Hatchback
+  #   label: car
+  #   x: -2.6
+  #   y: 4.8
+  #   yaw_deg: 90

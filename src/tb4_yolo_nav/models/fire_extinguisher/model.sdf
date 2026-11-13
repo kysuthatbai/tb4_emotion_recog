@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!-- Bình chữa cháy ~0.68 m: thân đỏ, đáy đen, nhãn trắng phía trước (+x), van/tay cầm kim loại, vòi đen phía sau. -->
+<sdf version="1.8">
+  <model name="fire_extinguisher">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <pose>0 0 0.34 0 0 0</pose>
+        <geometry><cylinder><radius>0.1</radius><length>0.68</length></cylinder></geometry>
+      </collision>
+
+      <visual name="base">
+        <pose>0 0 0.012 0 0 0</pose>
+        <geometry><cylinder><radius>0.095</radius><length>0.024</length></cylinder></geometry>
+        <material><ambient>0.05 0.05 0.05 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse></material>
+      </visual>
+      <visual name="body">
+        <pose>0 0 0.28 0 0 0</pose>
+        <geometry><cylinder><radius>0.09</radius><length>0.52</length></cylinder></geometry>
+        <material>
+          <ambient>0.6 0.02 0.02 1</ambient><diffuse>0.85 0.05 0.05 1</diffuse>
+          <specular>0.6 0.6 0.6 1</specular>
+        </material>
+      </visual>
+      <visual name="shoulder">
+        <pose>0 0 0.54 0 0 0</pose>
+        <geometry><sphere><radius>0.09</radius></sphere></geometry>
+        <material>
+          <ambient>0.6 0.02 0.02 1</ambient><diffuse>0.85 0.05 0.05 1</diffuse>
+          <specular>0.6 0.6 0.6 1</specular>
+        </material>
+      </visual>
+      <visual name="label">
+        <pose>0.086 0 0.30 0 0 0</pose>
+        <geometry><box><size>0.012 0.11 0.18</size></box></geometry>
+        <material><ambient>0.85 0.85 0.85 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+      </visual>
+      <visual name="label_stripe">
+        <pose>0.093 0 0.33 0 0 0</pose>
+        <geometry><box><size>0.004 0.09 0.03</size></box></geometry>
+        <material><ambient>0.6 0.02 0.02 1</ambient><diffuse>0.85 0.05 0.05 1</diffuse></material>
+      </visual>
+      <visual name="neck">
+        <pose>0 0 0.64 0 0 0</pose>
+        <geometry><cylinder><radius>0.028</radius><length>0.05</length></cylinder></geometry>
+        <material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+      </visual>
+      <visual name="gauge">
+        <pose>0.03 0 0.64 0 1.5708 0</pose>
+        <geometry><cylinder><radius>0.018</radius><length>0.012</length></cylinder></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+      <visual name="handle_low">
+        <pose>0.03 0 0.665 0 0 0</pose>
+        <geometry><box><size>0.15 0.03 0.012</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse><specular>0.9 0.9 0.9 1</specular></material>
+      </visual>
+      <visual name="handle_high">
+        <pose>0.025 0 0.69 0 -0.25 0</pose>
+        <geometry><box><size>0.14 0.03 0.012</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse><specular>0.9 0.9 0.9 1</specular></material>
+      </visual>
+      <visual name="hose">
+        <pose>-0.105 0 0.45 0 0.12 0</pose>
+        <geometry><cylinder><radius>0.012</radius><length>0.38</length></cylinder></geometry>
+        <material><ambient>0.03 0.03 0.03 1</ambient><diffuse>0.05 0.05 0.05 1</diffuse></material>
+      </visual>
+      <visual name="hose_top">
+        <pose>-0.06 0 0.645 0 1.5708 0</pose>
+        <geometry><cylinder><radius>0.012</radius><length>0.09</length></cylinder></geometry>
+        <material><ambient>0.03 0.03 0.03 1</ambient><diffuse>0.05 0.05 0.05 1</diffuse></material>
+      </visual>
+      <visual name="nozzle">
+        <pose>-0.13 0 0.24 0 0.12 0</pose>
+        <geometry><cylinder><radius>0.02</radius><length>0.07</length></cylinder></geometry>
+        <material><ambient>0.03 0.03 0.03 1</ambient><diffuse>0.05 0.05 0.05 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

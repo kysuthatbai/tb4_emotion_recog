@@ -1,0 +1,39 @@
+# Tham số cho voice_nav.launch.py. Ý nghĩa chi tiết xem declare_parameter trong từng node.
+voice_navigator:
+  ros__parameters:
+    text_topic: /voice/text
+    feedback_topic: /voice/feedback
+    initial_pose: auto        # auto: chỉ đặt khi AMCL chưa có vị trí | always | never
+    init_x: 0.0               # robot spawn ở gốc world = gốc map
+    init_y: 0.0
+    init_yaw_deg: 0.0
+    undock: true              # robot spawn ở dock -> undock trước goal đầu tiên
+    nav2_stuck_timeout: 45.0  # s Nav2 chưa active -> coi lifecycle manager bị kẹt
+    lifecycle_fallback: true  # khi kẹt: tự configure / activate các node Nav2
+    goal_timeout: 240.0       # s
+    retries: 1                # thử lại khi Nav2 ABORTED
+    face_travel_direction: true
+    fuzzy_threshold: 0.8      # so khớp mờ tên khu vực (0..1)
+
+speech_recognizer:
+  ros__parameters:
+    engine: whisper           # whisper (chính xác hơn) | vosk (nhẹ, ngữ pháp ràng buộc)
+    whisper_model: ~/tb4_ws/models/whisper/faster-whisper-small
+    whisper_device: cpu       # cuda cần thư viện CUDA 12 cho ctranslate2
+    whisper_compute_type: int8
+    beam_size: 5
+    language: vi
+    vosk_model: ~/tb4_ws/models/vosk/vosk-model-small-vn-0.4
+    vosk_grammar: true
+    input: mic
+    mic_device: default       # thiết bị ALSA (default = qua PulseAudio)
+    mic_source: ''            # nguồn PulseAudio cụ thể ('' = mic mặc định của hệ thống)
+    vad_ratio: 5.0            # câu nói phải to hơn ồn nền 5 lần (~14 dB); phòng yên tĩnh có thể hạ 3.0
+    command_filter: true      # chỉ publish câu có dạng câu lệnh (bỏ qua chuyện trò xung quanh)
+    push_to_talk: false       # true: nhấn Enter rồi nói (chạy bằng ros2 run, cần terminal)
+    ptt_window: 6.0
+    vad_min_db: -50.0
+    vad_end_silence: 0.8      # s im lặng = hết câu
+    vad_max_speech: 8.0
+    text_topic: /voice/text
+    show_level: false         # true: in mức âm thanh mỗi giây để chỉnh vad_ratio
